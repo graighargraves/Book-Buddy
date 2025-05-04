@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-const Login = () => {
+const Login = ({setToken, setUser}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
@@ -15,22 +15,26 @@ const Login = () => {
         try {
             const res = await fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/login", {
                 method: "POST",
-                headers: { "Content-Type:" "application/json" },
-                body: JSON.strongify({email, password})
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({email, password}),
             });
             const data = await res.json();
 
             if(res.ok) {
                 localStorage.setItem("token", data.token);
-                navigate("/");
+                localStorage.setItem("user", JSON.stringify(data.user)); 
+                setToken(data.token);
+                setUser(data.user);
+                navigate("/account");
             } else {
                 setError(data.message || "Login failed");
             }
-            catch (err) {
+            } catch (err) {
                 console.error(err);
                 setError("Something went wrong");
             }
         };
+
         return (
             <div>
                 <h2>Login</h2>
@@ -51,6 +55,6 @@ const Login = () => {
             </div>
         )
     }
-}
+
 
 export default Login;
