@@ -79,28 +79,33 @@ const Account = ({ token }) => {
   };
 
 
-  return (
-    <div>
-      <h2>My Account</h2>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
-      <h3 style={{ marginTop: "2rem" }}>Checked-Out Books</h3>
-      {user.reservations?.length > 0 ? (
-  <ul>
-    {user.reservations.map((book) => (
-      <li key={book.id}>
-        <strong>{book.title}</strong> by {book.author}
-        <button onClick={() => handleReturn(book.id)} style={{ marginLeft: "10px" }}>
-          Return
-        </button>
-      </li>
-    ))}
-  </ul>
-) : (
-  <p>You haven't checked out any books yet.</p>
-)}
-    </div>
-  );
+
+    return (
+        <main className="account-page">
+          <div className="account-card">
+            <h2>My Account</h2>
+            <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+      
+            <h3 style={{ marginTop: "2rem" }}>Checked-Out Books</h3>
+      
+            {user.reservations?.length > 0 ? (
+              <ul className="reservation-list">
+                {user.reservations.map((book) => (
+                  <li key={book.id} className="reservation-item">
+                    <span>
+                      <strong>{book.title}</strong> by {book.author}
+                    </span>
+                    <button onClick={() => handleReturn(book.id)}>Return</button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>You haven't checked out any books yet.</p>
+            )}
+          </div>
+        </main>
+      );
 };
 
 export default Account;

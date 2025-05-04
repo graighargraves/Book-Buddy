@@ -15,7 +15,7 @@ const SingleBook = () => {
               const res = await fetch(`https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/${id}`);
               const data = await res.json();
               console.log("Book from API:", data);
-              setBook(data); // ✅ This works, since data IS the book
+              setBook(data);
             } catch (err) {
               console.error("Fetch error:", err);
             }
@@ -59,24 +59,62 @@ const SingleBook = () => {
         
           if (!book) return <p>Loading book details...</p>;
 
-        return (
-            <div>
-                <button onClick={() => navigate ("/")}>Back Home</button>
-                <h2>{book.title}</h2>
-                <img src={book.coverimage} alt={`${book.title} cover`} width="150" />
-                <p><strong>Author:</strong> {book.author}</p>
-                <p><strong>Description: </strong> {book.description}</p>
-                <p><strong>Available:</strong> {book.available ? "Yes" : "No"}</p>
-                <button onClick={handleCheckout} disabled={!book.available}>
-                     {book.available ? "Check Out" : "Not Available"}
+   
+          return (
+            <main style={{ maxWidth: "600px", margin: "2rem auto", padding: "2rem" }}>
+              <button
+                onClick={() => navigate("/")}
+                style={{
+                  marginBottom: "1.5rem",
+                  background: "#eee",
+                  border: "none",
+                  padding: "0.5rem 1rem",
+                  borderRadius: "6px",
+                  cursor: "pointer"
+                }}
+              >
+                ← Back Home
+              </button>
+          
+              <div className="single-book-card">
+                <img
+                  src={book.coverimage}
+                  alt={`${book.title} cover`}
+                  style={{ width: "150px", borderRadius: "6px", marginBottom: "1rem" }}
+                />
+                <h2 style={{ marginBottom: "0.5rem" }}>{book.title}</h2>
+                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
+                  <strong>Author:</strong> {book.author}
+                </p>
+                <p style={{ fontSize: "0.95rem", marginBottom: "1rem" }}>
+                  {book.description}
+                </p>
+                <p>
+                  <strong>Available:</strong>{" "}
+                  {book.available ? "Yes" : "No"}
+                </p>
+                <button
+                  onClick={handleCheckout}
+                  disabled={!book.available}
+                  style={{
+                    marginTop: "1rem",
+                    background: book.available ? "#4CAF50" : "#ccc",
+                    color: "#fff",
+                    padding: "0.6rem 1.2rem",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: book.available ? "pointer" : "not-allowed",
+                    boxShadow: book.available
+                      ? "0 0 12px rgba(72, 239, 136, 0.5)"
+                      : "none",
+                    transition: "box-shadow 0.3s ease"
+                  }}
+                >
+                  {book.available ? "Check Out" : "Not Available"}
                 </button>
-            </div>
-        
-        )
-}
+              </div>
+            </main>
+          );
 
-
-
-
-
-export default SingleBook;
+        }
+export default SingleBook

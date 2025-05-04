@@ -25,7 +25,7 @@ const Login = ({setToken, setUser}) => {
                 localStorage.setItem("user", JSON.stringify(data.user)); 
                 setToken(data.token);
                 setUser(data.user);
-                navigate("/account");
+                navigate("/");
             } else {
                 setError(data.message || "Login failed");
             }
@@ -36,24 +36,35 @@ const Login = ({setToken, setUser}) => {
         };
 
         return (
-            <div>
+            <main className="auth-page">
+              <div className="auth-card">
                 <h2>Login</h2>
-                {error && <p style={{color: "red" }}>{error}</p>}
-                <form onSubmit={handleLogin}>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input
-                            type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    </div>
-                    <button type="submit">Log In</button>
+                {error && <p className="auth-error">{error}</p>}
+          
+                <form onSubmit={handleLogin} className="auth-form">
+                  <div>
+                    <label>Email:</label>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label>Password:</label>
+                    <input
+                      type="password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit">Log In</button>
                 </form>
-            </div>
-        )
+              </div>
+            </main>
+          );
     }
 
 

@@ -30,7 +30,7 @@ const Register = ({setToken, setUser}) => {
                 setPassword("");
                 setFirstName("");
                 setLastName("");
-                navigate("/account");
+                navigate("/");
             } else {
                 setError(data.message || "Registration failed");
             }
@@ -40,30 +40,53 @@ const Register = ({setToken, setUser}) => {
         }
     };
     return (
-        <div>
+        <main className="auth-page">
+          <div className="auth-card">
             <h2>Register</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleRegister}>
-                <div>
-                    <label>Email:</label>
-                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <div>
-                    <label>First Name:</label>
-                    <input type="name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                </div>
-                <div>
-                    <label>Last Name:</label>
-                    <input type="name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                </div>
-                <button type="submit">Register</button>
+            {error && <p className="auth-error">{error}</p>}
+      
+            <form onSubmit={handleRegister} className="auth-form">
+              <div>
+                <label>First Name:</label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label>Last Name:</label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+              <label>Email: <span className="required-hint">required</span></label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+              <label>Password: <span className="required-hint">required</span></label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <button type="submit">Register</button>
             </form>
-        </div>
-    )
+          </div>
+        </main>
+      );
 }
 
 export default Register;
