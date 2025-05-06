@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import bookLogo from './assets/books.png'
 import AllBooks from './components/Books'
 import {Routes, Route, Navigate, useNavigate} from "react-router-dom"
 import Navbar from './components/Navigations'
